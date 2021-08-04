@@ -28,7 +28,6 @@ def expressions_to_zero(spacing=2, polygon=None):
 
     # for each diagonal:
     for i in range(6):
-        print(i)
         # translate points so that the vertex we are considering is now the origin
         # this will simplify computation of jvv
         translated_polygon = polygon.translate(polygon.vertices[i])

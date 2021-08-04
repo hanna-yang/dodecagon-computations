@@ -28,6 +28,7 @@ def compute_60_deg_gb():
     p = make_60_deg_sym_gon()
 
     # compute the equations corresponding to zero-ing of j-invariant
+    print("computing equations arising from j-invt")
     exp_assumption = []
     for i in range(2,4):
         exp_assumption += expressions_to_zero(i, polygon=p)[:2]
@@ -37,6 +38,7 @@ def compute_60_deg_gb():
     # compute the equations corresponding the zero-ing of the irrational part of the
     # ratio of the moduli of two cylinders which always appear on the 12-gon
     # TODO: clean up this computation
+    print("computing equations arising from rational moduli")
     w_comp = (dist_along_transversal(make_60_deg_sym_gon().vertices[2])-\
         dist_along_transversal(make_60_deg_sym_gon().vertices[1]))/(\
         dist_along_transversal(make_60_deg_sym_gon().vertices[4]) -\
@@ -57,6 +59,8 @@ def compute_60_deg_gb():
 
     irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
     equations_to_zero.append(irr_mod1)
+
+    print(equations_to_zero[:-1])
 
     # print("equations to zero:", equations_to_zero)
     # compute groebner basis of all the generated equations
