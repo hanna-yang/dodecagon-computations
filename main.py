@@ -34,13 +34,9 @@ def compute_60_deg_gb():
     nums = [e.numerator()(D=Integer(3)) for e in exp_assumption if e is not None]
     equations_to_zero += nums
 
-    # # compute the equations corresponding the zero-ing of the ratio of the two intervals of the IET
-    # # the surface always breaks into three cylinders -- this code seems to not add any new constraints
-    # irrational_iet = ((dist_along_transversal(p.vertices[3]) - dist_along_transversal(p.vertices[2]))/(dist_along_transversal(p.vertices[1]) - dist_along_transversal(p.vertices[0]))).irrational(D=3).numerator() 
-    # equations_to_zero.append(irrational_iet)
-
     # compute the equations corresponding the zero-ing of the irrational part of the
-    # ratio of the moduli of two cylinders
+    # ratio of the moduli of two cylinders which always appear on the 12-gon
+    # TODO: clean up this computation
     w_comp = (dist_along_transversal(make_60_deg_sym_gon().vertices[2])-\
         dist_along_transversal(make_60_deg_sym_gon().vertices[1]))/(\
         dist_along_transversal(make_60_deg_sym_gon().vertices[4]) -\
@@ -61,24 +57,6 @@ def compute_60_deg_gb():
 
     irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
     equations_to_zero.append(irr_mod1)
-
-    # w_comp = (dist_along_transversal(make_60_deg_sym_gon().vertices[2])-\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[1]))/(\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[3]) -\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[2]))
-    # h_comp = (make_60_deg_sym_gon().vertices[2].x - make_60_deg_sym_gon().vertices[11].x + make_60_deg_sym_gon().vertices[3].x - make_60_deg_sym_gon().vertices[10].x)/(make_60_deg_sym_gon().vertices[1].x - make_60_deg_sym_gon().vertices[0].x + make_60_deg_sym_gon().vertices[2].x - make_60_deg_sym_gon().vertices[11].x)
-    # irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
-    # equations_to_zero.append(irr_mod1)
-
-    # w_comp = (dist_along_transversal(make_60_deg_sym_gon().vertices[4])-\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[3]))/(\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[3]) -\
-        # dist_along_transversal(make_60_deg_sym_gon().vertices[2]))
-    # # w3/w2
-    # h_comp = (make_60_deg_sym_gon().vertices[2].x - make_60_deg_sym_gon().vertices[11].x + make_60_deg_sym_gon().vertices[3].x - make_60_deg_sym_gon().vertices[10].x)/(make_60_deg_sym_gon().vertices[3].x - make_60_deg_sym_gon().vertices[10].x)
-    # #h2/h3
-    # irr_mod2 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
-    # equations_to_zero.append(irr_mod2)
 
     # print("equations to zero:", equations_to_zero)
     # compute groebner basis of all the generated equations
