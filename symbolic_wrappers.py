@@ -9,10 +9,12 @@ class SymbolicNumQAdjoinSqrtD:
     """
 
     def __init__(self, rational, irrational):
+        """
+        creates a new number in Q(sqrt(D))
+        """
         self.rational = rational
         self.irrational = irrational
         self.root = var("D")
-        # self.root = 3
 
     def __repr__(self):
         rep = "(" + self.rational.__repr__() + ")"
@@ -79,7 +81,12 @@ class SymbolicNumQAdjoinSqrtD:
                                        self.irrational * other.irrational * self.root,\
                                        self.rational * other.irrational +\
                                        self.irrational * other.rational)
+
     def conj(self):
+        """
+        returns the number in this field which has the same rational part,
+        and negated irrational part
+        """
         return SymbolicNumQAdjoinSqrtD(self.rational, -1*self.irrational)
 
     def __truediv__(self, other):
@@ -93,6 +100,10 @@ class SymbolicNumQAdjoinSqrtD:
                                        (unscaled.irrational)/denom)
 
     def full_simplify(self):
+        """
+        fully simplifies both the rational and irrational parts of this number,
+        according to sage
+        """
         try:
             rs = self.rational.full_simplify()
         except AttributeError:
@@ -103,29 +114,43 @@ class SymbolicNumQAdjoinSqrtD:
             irs = self.irrational
         return SymbolicNumQAdjoinSqrtD(rs, irs)
 
-    def __call__(self, val):
-        try:
-            rs = self.rational(D=3)
-        except AttributeError:
-            rs = self.rational
-        try:
-            irs = self.irrational(D=3)
-        except AttributeError:
-            irs = self.irrational
-        return SymbolicNumQAdjoinSqrtD(rs, irs)
+    # def __call__(self, val):
+        # """
+        # replaces all instances of 
+        # """
+        # try:
+            # rs = self.rational(D=3)
+        # except AttributeError:
+            # rs = self.rational
+        # try:
+            # irs = self.irrational(D=3)
+        # except AttributeError:
+            # irs = self.irrational
+        # return SymbolicNumQAdjoinSqrtD(rs, irs)
     
     def is_rational(self):
         return self.irrational == 0
 
     def scale(self, i):
+        """
+        multiplies this number by a number in q
+        TODO: this is essentially the same as multiplying
+        """
         rs = self.rational
         irs = self.irrational
         return SymbolicNumQAdjoinSqrtD(i*rs, i*irs)
 
     def wedge_over_q(self, other):
+        """
+        returns the coefficient of the term (1,0) wedge (0,1) in Q
+        (all other terms, for this case, are 0).
+        """
         return self.rational*other.irrational - self.irrational*other.rational
 
 class SymbolicCoordinates:
+    """
+    represents coordinates in 
+    """
 
     def __init__(self, x, y):
         self.x = x
