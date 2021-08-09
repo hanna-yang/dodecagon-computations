@@ -72,13 +72,11 @@ def make_90_deg_sym_gon():
 def make_60_deg_sym_gon():
     """
     return a 12-gon which has 60 degree rotational symmetry
+    TODO: clean up this code with some kind of matrix application
     """
     var("a1 b1 c1 d1")
     row1 = to_coords(Integer(1)/Integer(2),0,0,Integer(-1)/Integer(2))
     row2 = to_coords(0,Integer(1)/Integer(2),Integer(1)/Integer(2),0)
-#     # verts with 0 answer:
-#     verts = [to_coords(1,0,0,0),
-#              to_coords(a1,0,0,d1)]
     verts = [to_coords(Integer(1),Integer(0),0,0),
              to_coords(a1,b1,c1,d1)]
     e = verts[:]

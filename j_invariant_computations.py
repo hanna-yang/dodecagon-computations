@@ -52,10 +52,14 @@ def expressions_to_zero(spacing=2, polygon=None):
 
     return expressions
 
-def compute_all_jxy(polygon = None):
+def compute_all_jxy(polygon=None):
     """
     for each direction for which there exists a cylinder in
     a 12-gon, compute jxy
+
+    returns a tuple, expressions, which are the entries of the
+    matrix in row-major order, and symmetric, which are the two
+    entries of the matrix which are relevant to symmetric-ness
     """
     expressions = []
     symmetric = []

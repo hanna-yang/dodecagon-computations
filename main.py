@@ -38,6 +38,13 @@ def compute_60_deg_gb():
     nums = [e.numerator()(D=Integer(3)) for e in exp_assumption if e is not None]
     equations_to_zero += nums
 
+    R = QQ['a1, b1, c1, d1']; (a1, b1, c1, d1,) = R._first_ngens(4)
+    I = R.ideal(equations_to_zero)
+    gb = I.groebner_basis()
+    print("groebner basis of jvv computations for")
+    print("a pi/3 rotationally symmetric 12-gon (see lemma [TODO]")
+    print(gb)
+
     # compute the equations corresponding the zero-ing of the irrational part of the
     # ratio of the moduli of two cylinders which always appear on the 12-gon
     # TODO: clean up this computation; check to make sure naming conventions are followed
@@ -76,5 +83,37 @@ def compute_60_deg_gb():
     print("from the 60 degree symmetric 12-gon:")
     return gb
 
+def compute_generic_gb():
+    """
+    prints groebner basis for a generic 12-gon with equations derived from
+    - Jvv connections along diagonals
+    - Jxy symmetric constraints
+
+    here, we make the additional normalization that there is one vertex at (1,0).
+    this is afforded to us because actions on a surface by GL2R do not affect its
+    veechness
+    """
+    equations_to_zero = []
+    p = make_more_assumption_gon()
+
+    # compute the equations corresponding to zero-ing of j-invariant
+    print("computing equations arising from j-invt")
+    exp_assumption = []
+    for i in range(1,6):
+        exp_assumption += expressions_to_zero(i, polygon=p)
+    nums = [e.numerator()(D=Integer(3)) for e in exp_assumption if e is not None]
+    equations_to_zero += nums
+
+    exp, sym = compute_all_jxy(polygon=p)
+    for i in range(6):
+        equations_to_zero.append((sym[i][0].numerator()*sym[i][1].denominator() - sym[i][1].numerator()*sym[i][0].denominator())(Integer(3)))
+
+    R = QQ['a1, b1, c1, d1, a2, b2, c2, d2, a4, b4, c4, d4, a5, b5, c5, d5']
+    (a1, b1, c1, d1, a2, b2, c2, d2, a4, b4, c4, d4, a5, b5, c5, d5) = R._first_ngens(17)
+    I = R.ideal(equations_to_zero)
+    gb = I.groebner_basis()
+    print(gb)
+
 # ------------ output ------------
-print(compute_60_deg_gb())
+# print(compute_60_deg_gb())
+compute_generic_gb()
