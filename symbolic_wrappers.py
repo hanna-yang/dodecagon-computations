@@ -246,14 +246,18 @@ class SymbolicCoordinates:
         -q  1
         as a tuple, with first value q_rational and second value q_sqrt_d
         """
-        q_rational = q.rational
-        q_sqrt_d = q.irrational
-        a = self.x.rational
-        b = self.x.irrational
-        c = self.y.rational
-        d = self.y.irrational
-        y_coord = SymbolicNumQAdjoinSqrtD(c -a*q_rational - q_sqrt_d*b*D, d - a*q_sqrt_d - q_rational*b)
-        x_coord = SymbolicNumQAdjoinSqrtD(self.x.rational, self.x.irrational)
+        # q_rational = q.rational
+        # q_sqrt_d = q.irrational
+        # a = self.x.rational
+        # b = self.x.irrational
+        # c = self.y.rational
+        # d = self.y.irrational
+        # y_coord = SymbolicNumQAdjoinSqrtD(c -a*q_rational - q_sqrt_d*b*D, d - a*q_sqrt_d - q_rational*b)
+        # x_coord = SymbolicNumQAdjoinSqrtD(self.x.rational, self.x.irrational)
+        # return SymbolicCoordinates(x_coord, y_coord)
+        x_coord = SymbolicNumQAdjoinSqrtD(self.y.rational, self.y.irrational) 
+        y_coord = self.y - self.x*q
+        # y_coord = SymbolicNumQAdjoinSqrtD(self.y.rational, self.y.irrational)
         return SymbolicCoordinates(x_coord, y_coord)
 
     def shear_y_zero(self, q):

@@ -23,6 +23,9 @@ def compute_60_deg_gb():
     and
     a1=0, b1=1/2, c1=1/2, d1=0
     either by hand, or asking sage to solve the series of equations which are printed.
+
+    TODO: maybe fix the issues with all the variables so that solve will work
+    by passing variables into the constructor
     """
     equations_to_zero = []
     p = make_60_deg_sym_gon()
@@ -62,8 +65,6 @@ def compute_60_deg_gb():
 
     irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
     equations_to_zero.append(irr_mod1)
-
-    print(equations_to_zero[:-1])
 
     # print("equations to zero:", equations_to_zero)
     # compute groebner basis of all the generated equations
