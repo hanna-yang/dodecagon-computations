@@ -83,6 +83,47 @@ def compute_60_deg_gb():
     print("from the 60 degree symmetric 12-gon:")
     return gb
 
+def cyclic_moduli():
+    """
+    Computes the pairwise moduli of the cylinders along the direction from
+    v3 to v10, and sets the irrational part to 0. If the groebner basis
+    computed by adding these equations doesn't change, then all cyclic
+    12-gons will already have this property
+
+    we use the following conventions:
+    - the central cylinder is numbered 1
+    - the other cylinders, numbered going to the right, are 2 and 3
+    - hi and wi are the height and width, respectively of the cyliders
+
+    Note that in our derivation of these formulas, we already force two cylinders
+    to have commensurable moduli. We then only need to check the moduli of
+    the remaining cylinder against any other moduli
+
+    TODO: clean up the make 60 sym gon repetitions; get rid of additional print statements
+    """
+    equations_to_zero = list(compute_60_deg_gb())
+
+    w2_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[3])-\
+        dist_along_transversal(make_60_deg_sym_gon().vertices[2]))
+    w1_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[4]) -\
+        dist_along_transversal(make_60_deg_sym_gon().vertices[3]))
+    w_comp = w2_scaled/w1_scaled
+
+    p = make_60_deg_sym_gon().vertices
+    h2 = p[3].x - p[10].x + p[2].x - p[11].x
+    h1 = (make_60_deg_sym_gon().vertices[4].x - make_60_deg_sym_gon().vertices[9].x)
+    h_comp = h1/h2
+
+    irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
+    equations_to_zero.append(irr_mod1)
+
+    R = QQ['a1, b1, c1, d1']; (a1, b1, c1, d1,) = R._first_ngens(4)
+    I = R.ideal(equations_to_zero)
+    gb = I.groebner_basis()
+
+    return gb
+    
+
 def compute_generic_gb():
     """
     prints groebner basis for a generic 12-gon with equations derived from
@@ -116,4 +157,5 @@ def compute_generic_gb():
 
 # ------------ output ------------
 # print(compute_60_deg_gb())
-compute_generic_gb()
+print(cyclic_moduli())
+# compute_generic_gb()
