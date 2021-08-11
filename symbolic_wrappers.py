@@ -312,6 +312,9 @@ class Symbolic12Gon:
             s += str(vertex) + "\n"
         return s[:-1]
 
+    def __getitem__(self, i):
+        return self.vertices[i]
+
     def shear_x_zero(self, q):
         """
         input types:

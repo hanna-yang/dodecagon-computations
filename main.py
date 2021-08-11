@@ -49,16 +49,15 @@ def compute_60_deg_gb():
     # ratio of the moduli of two cylinders which always appear on the 12-gon
     # TODO: clean up this computation; check to make sure naming conventions are followed
     print("computing equations arising from rational moduli")
+    p = make_60_deg_sym_gon()
 
     # wi_scaled are the projection of 
-    w2_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[2])-\
-        dist_along_transversal(make_60_deg_sym_gon().vertices[1]))
-    w1_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[4]) -\
-        dist_along_transversal(make_60_deg_sym_gon().vertices[3]))
+    w2_scaled = (dist_along_transversal(p[2])-\
+        dist_along_transversal(p[1]))
+    w1_scaled = (dist_along_transversal(p[4]) -\
+        dist_along_transversal(p[3]))
     w_comp = w2_scaled/w1_scaled
-
     
-    p = make_60_deg_sym_gon().vertices
     m = (p[3].y - p[10].y)/(p[3].x - p[10].x)
     parallel2 = eqn_for_line_point_slope(p[2], m)
     side = eqn_for_line_2pts(p[11], p[0])
@@ -67,7 +66,7 @@ def compute_60_deg_gb():
     pt1 = intersection(*parallel1, *side)
 
     h2 = (p[2].x - pt2.x) + (p[1].x - pt1.x)
-    h1 = (make_60_deg_sym_gon().vertices[4].x - make_60_deg_sym_gon().vertices[9].x)
+    h1 = (p[4].x - p[9].x)
     h_comp = h1/h2
 
     irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
@@ -103,15 +102,16 @@ def cyclic_moduli():
     """
     equations_to_zero = list(compute_60_deg_gb())
 
-    w2_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[3])-\
-        dist_along_transversal(make_60_deg_sym_gon().vertices[2]))
-    w1_scaled = (dist_along_transversal(make_60_deg_sym_gon().vertices[4]) -\
-        dist_along_transversal(make_60_deg_sym_gon().vertices[3]))
+    p = make_60_deg_sym_gon()
+
+    w2_scaled = (dist_along_transversal(p[3])-\
+        dist_along_transversal(p[2]))
+    w1_scaled = (dist_along_transversal(p[4]) -\
+        dist_along_transversal(p[3]))
     w_comp = w2_scaled/w1_scaled
 
-    p = make_60_deg_sym_gon().vertices
     h2 = p[3].x - p[10].x + p[2].x - p[11].x
-    h1 = (make_60_deg_sym_gon().vertices[4].x - make_60_deg_sym_gon().vertices[9].x)
+    h1 = (p[4].x - p[9].x)
     h_comp = h1/h2
 
     irr_mod1 = (w_comp*h_comp).irrational(D=Integer(3)).numerator()
@@ -156,6 +156,6 @@ def compute_generic_gb():
     print(gb)
 
 # ------------ output ------------
-# print(compute_60_deg_gb())
-print(cyclic_moduli())
+print(compute_60_deg_gb())
+# print(cyclic_moduli())
 # compute_generic_gb()
