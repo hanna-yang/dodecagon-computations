@@ -114,20 +114,6 @@ class SymbolicNumQAdjoinSqrtD:
             irs = self.irrational
         return SymbolicNumQAdjoinSqrtD(rs, irs)
 
-    # def __call__(self, val):
-        # """
-        # replaces all instances of 
-        # """
-        # try:
-            # rs = self.rational(D=3)
-        # except AttributeError:
-            # rs = self.rational
-        # try:
-            # irs = self.irrational(D=3)
-        # except AttributeError:
-            # irs = self.irrational
-        # return SymbolicNumQAdjoinSqrtD(rs, irs)
-    
     def is_rational(self):
         return self.irrational == 0
 

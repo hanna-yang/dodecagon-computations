@@ -8,6 +8,8 @@ def dist_along_transversal(coord):
     calculates the x-coordinate of the intersection point of the
     coordinate with the y-axis, when projected in the direction parallel
     to the cylinder in the center
+
+    TODO: generalize this (just have it take a slope)
     """
     p = make_60_deg_sym_gon()
     v3 = p.vertices[3]

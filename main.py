@@ -82,6 +82,24 @@ def compute_60_deg_gb():
     print("from the 60 degree symmetric 12-gon:")
     return gb
 
+def cylinder_existence():
+    """
+    we show that there exists a cylinder bounded by the saddle connection
+    from v6 to v11, as well as the saddle connection from v5 to v0
+
+    As explained in the proof, we just need to show that the vector from
+    v7 to F as well as the one from G to v8 are the same. We can do this
+    by measuring the distance between the points where the lines through
+    each pair of points intersect the x axis and checking they are the same. 
+    This is because we know both vectors are along the same direction,
+    so we form congruent triangles.
+    """
+    p = make_60_deg_sym_gon()
+    d1 = dist_along_transversal(p[7]) - dist_along_transversal(p[6])
+    d2 = dist_along_transversal(p[5]) - dist_along_transversal(p[8])
+    print("difference between the horizontal distances arising from both vectors: (expected 0)")
+    return (d1 - d2)(3).full_simplify()
+
 def cyclic_moduli():
     """
     Computes the pairwise moduli of the cylinders along the direction from
@@ -156,6 +174,7 @@ def compute_generic_gb():
     print(gb)
 
 # ------------ output ------------
-print(compute_60_deg_gb())
+# print(compute_60_deg_gb())
+print(cylinder_existence())
 # print(cyclic_moduli())
 # compute_generic_gb()
