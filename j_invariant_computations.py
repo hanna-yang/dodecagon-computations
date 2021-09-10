@@ -30,7 +30,8 @@ def expressions_to_zero(spacing=2, polygon=None):
     for i in range(6):
         # translate points so that the vertex we are considering is now the origin
         # this will simplify computation of jvv
-        translated_polygon = polygon.translate(polygon.vertices[i])
+        # translated_polygon = polygon.translate(polygon.vertices[i])
+        translated_polygon = polygon
 
         # in the direction we wish to compute jvv, written as (1, q), we perform
         # a shear such that (1,q) becomes (1,0)

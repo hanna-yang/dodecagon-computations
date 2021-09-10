@@ -33,8 +33,8 @@ def compute_60_deg_gb():
     # compute the equations corresponding to zero-ing of j-invariant
     print("computing equations arising from j-invt")
     exp_assumption = []
-    for i in range(2,4):
-        exp_assumption += expressions_to_zero(i, polygon=p)[:2]
+    for i in range(1,6):
+        exp_assumption += expressions_to_zero(i, polygon=p)
     nums = [e.numerator()(D=Integer(3)) for e in exp_assumption if e is not None]
     equations_to_zero += nums
 
@@ -174,7 +174,15 @@ def compute_generic_gb():
     print(gb)
 
 # ------------ output ------------
-# print(compute_60_deg_gb())
-print(cylinder_existence())
+print(compute_60_deg_gb())
+# print(cylinder_existence())
 # print(cyclic_moduli())
-# compute_generic_gb()
+# print(compute_generic_gb())
+
+# scratchwork
+# R = QQ['a1, b1, c1, d1, a2, b2, c2, d2, a4, b4, c4, d4, a5, b5, c5, d5']
+# (a1, b1, c1, d1, a2, b2, c2, d2, a4, b4, c4, d4, a5, b5, c5, d5) = R._first_ngens(17)
+# p = make_60_deg_sym_gon()
+# val = (dist_along_transversal(p[7]) - dist_along_transversal(p[6]))(3)
+# print(val.rational(a1=-d1, b1=c1))
+# print(val.irrational(a1=-d1, b1=c1))
